@@ -57,20 +57,6 @@ Shader "Custom/PBRLight"
                 UNITY_DEFINE_INSTANCED_PROP(float, _Smoothness)
             UNITY_INSTANCING_BUFFER_END(UnityPerMaterial)
 
-            //环境光：通过球谐光照参数和法线向量计算
-            float3 AmbientLight(half3 normalWS, float3 color)
-            {
-                float4 coefficients[7];
-                coefficients[0] = unity_SHAr;
-                coefficients[1] = unity_SHAg;
-                coefficients[2] = unity_SHAb;
-                coefficients[3] = unity_SHBr;
-                coefficients[4] = unity_SHBg;
-                coefficients[5] = unity_SHBb;
-                coefficients[6] = unity_SHC;
-                return max(0.0, SampleSH9(coefficients, normalWS)) * color;
-            }
-
             //平方函数
             float Square(float v)
             {
@@ -134,6 +120,20 @@ Shader "Custom/PBRLight"
             float3 Directlight(half3 normalWS, float3 positionWS, float3 color)
             {
                 return IncomingLight(normalWS) * DirectBRDF(normalWS, positionWS, color);
+            }
+
+            //环境光：通过球谐光照参数和法线向量计算
+            float3 AmbientLight(half3 normalWS, float3 color)
+            {
+                float4 coefficients[7];
+                coefficients[0] = unity_SHAr;
+                coefficients[1] = unity_SHAg;
+                coefficients[2] = unity_SHAb;
+                coefficients[3] = unity_SHBr;
+                coefficients[4] = unity_SHBg;
+                coefficients[5] = unity_SHBb;
+                coefficients[6] = unity_SHC;
+                return max(0.0, SampleSH9(coefficients, normalWS)) * DiffuseBRDF(color);
             }
 
             v2f vert (appdata v)
