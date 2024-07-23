@@ -5,8 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/PlayScene.unity
-    guid: 03ed5b9d0d74e4d43b06fbfb842c5a24
-  m_configObjects:
-    com.unity.addressableassets: {fileID: 11400000, guid: a0f6d1690e367414c9a182f895d5a54a, type: 2}
+  - enabled: 1
+    path: Assets/Scenes/PBRLightScene.unity
+    guid: fc27ce52c46775149838684195964915
+  m_configObjects: {}
